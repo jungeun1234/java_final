@@ -173,6 +173,7 @@ class signupPanel extends JPanel{
 	JRadioButton menButton;
 	JRadioButton girlButton;
 	JButton registerButton;
+	JButton back;
 	Font font = new Font("회원가입", Font.BOLD, 40);
 	
 	String year = "", month = "", day = "";
@@ -301,10 +302,13 @@ class signupPanel extends JPanel{
 
 		registerButton = new JButton("회원가입");
 		registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		back = new JButton("로그인 화면");
+		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		mainPanel.add(signupLabel);
 		mainPanel.add(subPanel);
 		mainPanel.add(registerButton);
+		mainPanel.add(back);
 		
 		monthComboBox.addActionListener(new ActionListener() {
 			@Override
@@ -382,5 +386,11 @@ class signupPanel extends JPanel{
 				}
 			}
 		});
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				l.card.previous(l.cardPanel);
+			}
+		});
+
 	}
 }
