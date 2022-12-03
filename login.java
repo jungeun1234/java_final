@@ -33,7 +33,8 @@ public class login {
 	}
 	public Connection getConnection() throws SQLException{
 		Connection con = null;
-		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/'mysql에서 설정한 db이름'?serverTimezone=UTC","mysql아이디","mysql비밀번호");
+		//비밀번호 String mysqlpassword = "1215"
+		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/'user'?serverTimezone=UTC","root","1215");
 		
 		return con;
 	}
@@ -154,7 +155,6 @@ class loginPanel extends JPanel implements ActionListener{
 				System.out.println("SQLException"+ex);
 			}
 			break;
-			
 		}
 	}
 }
@@ -165,6 +165,8 @@ class signupPanel extends JPanel{
 	JPasswordField passReTF;
 	JTextField nameTF;
 	JTextField yearTF;
+	JTextField monthTF;
+	JTextField dayTF;
 	JTextField phoneTF;
 	JPanel mainPanel;
 	JPanel subPanel;
@@ -200,13 +202,9 @@ class signupPanel extends JPanel{
 		passReTF = new JPasswordField(15);
 		nameTF = new JTextField(15);
 		yearTF = new JTextField(4);
+		monthTF = new JTextField(10);
+		dayTF = new JTextField(10);
 		phoneTF = new JTextField(11);
-		
-		monthComboBox = new JComboBox<String>(
-				new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" });
-		dayComboBox = new JComboBox<String>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
-				"11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-				"28", "29", "30", "31" });
 		
 		menButton = new JRadioButton("남자");
 		girlButton = new JRadioButton("여자");
@@ -260,18 +258,17 @@ class signupPanel extends JPanel{
 
 		c.gridx = 1;
 		c.gridy = 4;
-		c.weightx = 0.6;
-		subPanel.add(yearTF, c); //생년
+		subPanel.add(yearTF, c);
 
 		c.gridx = 2;
 		c.gridy = 4;
-		c.weightx = 0.2;
-		subPanel.add(monthComboBox, c);//월
+		c.weightx = 0.3;
+		subPanel.add(monthTF, c);//월
 
 		c.gridx = 3;
 		c.gridy = 4;
-		c.weightx = 0.2;
-		subPanel.add(dayComboBox, c);//일
+		c.weightx = 0.6;
+		subPanel.add(dayTF, c);//일
 
 		c.gridx = 0;
 		c.gridy = 5;
@@ -310,16 +307,7 @@ class signupPanel extends JPanel{
 		mainPanel.add(registerButton);
 		mainPanel.add(back);
 		
-		monthComboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==monthComboBox) {
-					JComboBox monthBox=(JComboBox)e.getSource();
-					month=(String)monthBox.getSelectedItem();
-					System.out.println(month);
-				}
-			}
-		});
+
 		menButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -344,6 +332,8 @@ class signupPanel extends JPanel{
 				name = nameTF.getText();
 				year = yearTF.getText();
 				phone = phoneTF.getText();
+				month = monthTF.getText();
+				day = dayTF.getText();
 
 				String sql = "insert into user_info(id, password, name, birthday, gender, phoneNumber) values (?,?,?,?,?,?)";
 				//INSERT로 회원가입기능 구현
