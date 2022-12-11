@@ -201,6 +201,9 @@ public class Chatroom extends JFrame {
 
                 var unresign = JOptionPane.showOptionDialog(null, "탈퇴하시겠습니까?", "탈퇴",
                         0, 3, null, yes_no, yes_no[0]);
+                if (unresign == 1){
+                    new myPage();
+                }
                 if (unresign == 0) {
                     pstmt.executeUpdate();
                     pstmt = con.prepareStatement(SQL);
